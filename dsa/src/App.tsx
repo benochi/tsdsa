@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import BigONotation from './components/BigONotation';
 import { dsaTopics } from './dsaData';
@@ -39,8 +39,8 @@ function App() {
       <h1>Data Structures and Algorithms Course</h1>
       <ul>
         {dsaTopics.map((topic) => (
-          <li key={topic.id}>
-            {topic.title}{' '}
+          <li key={topic.id} className={completedTopics.includes(topic.id) ? 'completed' : ''}>
+            <span>{completedTopics.includes(topic.id) ? <s>{topic.title}</s> : topic.title}</span>{' '}
             <button onClick={() => toggleCompletion(topic.id)}>
               {completedTopics.includes(topic.id) ? 'Mark as Incomplete' : 'Mark as Completed'}
             </button>

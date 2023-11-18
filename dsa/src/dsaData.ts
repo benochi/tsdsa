@@ -6,5 +6,5 @@ export interface DsaTopic {
 
 export const dsaTopics: DsaTopic[] = [
   { id: 1, title: 'Big-O Notation' },
-  // Add more topics here as needed
+  { id: 2, title: 'Timing Our Code' },
 ];

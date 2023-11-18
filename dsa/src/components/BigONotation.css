@@ -1,0 +1,10 @@
+.code-block {
+  white-space: pre-wrap;
+  font-size: 1rem; 
+  text-align: left;
+}
+.code-block-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start; 
+}
