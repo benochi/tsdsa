@@ -39,14 +39,30 @@ function App() {
       <h1>Data Structures and Algorithms Course</h1>
       <ul>
         {dsaTopics.map((topic) => (
-          <li key={topic.id} className={completedTopics.includes(topic.id) ? 'completed' : ''}>
-            <span>{completedTopics.includes(topic.id) ? <s>{topic.title}</s> : topic.title}</span>{' '}
+          <li key={topic.id}>
+            <span>{topic.title}</span>
             <button onClick={() => toggleCompletion(topic.id)}>
               {completedTopics.includes(topic.id) ? 'Mark as Incomplete' : 'Mark as Completed'}
             </button>
             <button onClick={() => toggleTopic(topic.id)}>
               {activeTopic === topic.id ? 'Close Topic' : 'View Topic'}
             </button>
+            {activeTopic === topic.id && (
+              <ul>
+                {topic.subtopics.map((subtopic) => (
+                  <li key={subtopic.id} className={subtopic.completed ? 'completed' : ''}>
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={subtopic.completed}
+                        onChange={() => toggleCompletion(subtopic.id)}
+                      />
+                      <span>{subtopic.title}</span>
+                    </label>
+                  </li>
+                ))}
+              </ul>
+            )}
           </li>
         ))}
       </ul>
