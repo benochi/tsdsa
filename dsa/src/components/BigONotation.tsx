@@ -1,9 +1,53 @@
+import { DsaSubtopic } from '../dsaData';
+import { useState, useEffect } from 'react';
 
-function BigONotation() {
+interface BigONotationProps {
+  topics: DsaSubtopic[];
+  toggleCompletion: (topicId: number) => void;
+}
+
+function BigONotation({ topics, toggleCompletion }: BigONotationProps) {
+  const [completedSubtopics, setCompletedSubtopics] = useState<number[]>([]);
+
+  useEffect(() => {
+    const storedCompletedSubtopics = localStorage.getItem('completedSubtopics');
+    if (storedCompletedSubtopics) {
+      setCompletedSubtopics(JSON.parse(storedCompletedSubtopics));
+    }
+  }, []);
+
+  const toggleSubtopicCompletion = (subtopicId: number) => {
+    let updatedSubtopics;
+    if (completedSubtopics.includes(subtopicId)) {
+      updatedSubtopics = completedSubtopics.filter((id) => id !== subtopicId);
+    } else {
+      updatedSubtopics = [...completedSubtopics, subtopicId];
+    }
+  
+    setCompletedSubtopics(updatedSubtopics);
+    localStorage.setItem('completedSubtopics', JSON.stringify(updatedSubtopics));
+  };
 
   return (
     <div>
       <h1 className="text-3xl font-bold">Big O Notation</h1>
+      <ul>
+        {topics.map((subtopic) => (
+          <li key={subtopic.id} className={completedSubtopics.includes(subtopic.id) ? 'completed' : ''}>
+            <label>
+              <input
+                type="checkbox"
+                checked={completedSubtopics.includes(subtopic.id)}
+                onChange={() => {
+                  toggleSubtopicCompletion(subtopic.id);
+                  toggleCompletion(subtopic.id);
+                }}
+              />
+              <span>{subtopic.title}</span>
+            </label>
+          </li>
+        ))}
+      </ul>
       <div>
         <p >
           Cheatsheet available

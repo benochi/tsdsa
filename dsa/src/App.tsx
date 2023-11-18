@@ -47,27 +47,13 @@ function App() {
             <button onClick={() => toggleTopic(topic.id)}>
               {activeTopic === topic.id ? 'Close Topic' : 'View Topic'}
             </button>
-            {activeTopic === topic.id && (
-              <ul>
-                {topic.subtopics.map((subtopic) => (
-                  <li key={subtopic.id} className={subtopic.completed ? 'completed' : ''}>
-                    <label>
-                      <input
-                        type="checkbox"
-                        checked={subtopic.completed}
-                        onChange={() => toggleCompletion(subtopic.id)}
-                      />
-                      <span>{subtopic.title}</span>
-                    </label>
-                  </li>
-                ))}
-              </ul>
-            )}
           </li>
         ))}
       </ul>
       <div className="card">
-        {activeTopic === 1 && <BigONotation />}
+        {activeTopic === 1 && (
+          <BigONotation topics={dsaTopics.find((topic) => topic.id === 1)?.subtopics || []} toggleCompletion={toggleCompletion} />
+        )}
       </div>
     </>
   );
